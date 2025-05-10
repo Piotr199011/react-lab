@@ -18,7 +18,9 @@ const [email, setEmail] = useState('');
            message='Sredni adres';
 
     }
-
+function  alertEmail(){
+alert(email);
+}
 
 
   return (
@@ -28,6 +30,7 @@ const [email, setEmail] = useState('');
         <h2>Twój e-mail to {email}</h2>
           <div>{message}</div>
           <input type="text"onChange={handleChange}/>
+   <button onClick={alertEmail}>Wyświetl mój e-mail w alercie </button>
 
       </div>
   );
