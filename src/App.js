@@ -3,37 +3,40 @@ import './App.css';
 import {useState} from "react";
 
 function App() {
-   // let email="piotr.jarmosz@o2.pl";
-const [email, setEmail] = useState('');
+    // let email="piotr.jarmosz@o2.pl";
+    const [email, setEmail] = useState('');
+    const [isLoggedInAs, setIsLoggedisAs] = useState(false);
 
-    function handleChange(event){
-       setEmail(event.target.value);}
+    function handleChange(event) {
+        setEmail(event.target.value);
+    }
 
-       let message;
-       if (email.length<5){
-           message= 'Za krótki adres';
-       }else if(email.length>15){
-            message=' Za długi adres';
-        }else {
-           message='Sredni adres';
+    function handleAuthenticate() {
+        setIsLoggedisAs(email);
+        setEmail('');
+    }
+
+    let content;
+    if (isLoggedInAs) {
+        content = <div>
+            <h2>Witaj{isLoggedInAs}</h2>
+            <a onClick={() => setIsLoggedisAs(null)}>Wyloguj</a>
+        </div>
+
+    } else {
+        content = <div>
+            <input type="text" onChange={handleChange} value={email}/>
+            <button onClick={handleAuthenticate}>Wchodzę</button>
+        </div>;
 
     }
-function  alertEmail(){
-alert(email);
-}
 
-
-  return (
-      <div>
-
-        <h1>System do zapisów na zajęcia</h1>
-        <h2>Twój e-mail to {email}</h2>
-          <div>{message}</div>
-          <input type="text"onChange={handleChange}/>
-   <button onClick={alertEmail}>Wyświetl mój e-mail w alercie </button>
-
-      </div>
-  );
+    return (
+        <div>
+            <h1>System do zapisów na zajęcia</h1>
+            {content}
+        </div>
+    );
 }
 
 export default App;
