@@ -3,6 +3,7 @@ import './App.css';
 import {useState} from "react";
 import "milligram";
 import {LoginForm} from "./LoginForm";
+import {UserPanel} from "./UserPanel";
 
 function App() {
     // let email="piotr.jarmosz@o2.pl";
@@ -13,26 +14,28 @@ function App() {
 
     function handleAuthenticate(email) {
 
+        if (email) {
             setIsLoggedisAs(email);
             // setEmail('');
-
+        }
     }
-    let content;
-    if (isLoggedInAs) {
-        content =<div>
-            <h2>Witaj{isLoggedInAs}</h2>
-            <a onClick={() => setIsLoggedisAs(null)}>Wyloguj</a>
-        </div>
-
-    } else {
-        content = <LoginForm onLogin={handleAuthenticate}/>
-
+    function logout()
+    {
+        setIsLoggedisAs(false)
     }
 
     return (
         <div>
+
             <h1>System do zapisów na zajęcia</h1>
-            {content}
+
+            {
+
+                isLoggedInAs
+                    ? <UserPanel username={isLoggedInAs} onLogout={logout}/>
+                    : <LoginForm onLogin={handleAuthenticate}/>
+
+            }
         </div>
     );
 }
